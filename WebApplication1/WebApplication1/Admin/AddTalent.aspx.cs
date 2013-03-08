@@ -13,6 +13,7 @@ namespace WebApplication1.Admin
         {
             using (var foo = new BlackCrusadeEntities())
             {
+                // Test entity framework
                 var coo = foo.AttributeTypes.Select(f => f.Name).ToList();
             }
         }
