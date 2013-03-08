@@ -1,5 +1,0 @@
-C:\Users\Mok\Documents\Git\Warhammer\WebApplication1\WebApplication1\bin\WebApplication1.dll
-C:\Users\Mok\Documents\Git\Warhammer\WebApplication1\WebApplication1\bin\WebApplication1.pdb
-C:\Users\Mok\Documents\Git\Warhammer\WebApplication1\WebApplication1\obj\Debug\WebApplication1.csprojResolveAssemblyReference.cache
-C:\Users\Mok\Documents\Git\Warhammer\WebApplication1\WebApplication1\obj\Debug\WebApplication1.dll
-C:\Users\Mok\Documents\Git\Warhammer\WebApplication1\WebApplication1\obj\Debug\WebApplication1.pdb
