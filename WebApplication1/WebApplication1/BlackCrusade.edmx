@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BlackCrusadeModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="BlackCrusadeModelStoreContainer">
+          <EntitySet Name="AttributeType" EntityType="BlackCrusadeModel.Store.AttributeType" store:Type="Tables" />
+          <EntitySet Name="BlackCrusadeGod" EntityType="BlackCrusadeModel.Store.BlackCrusadeGod" store:Type="Tables" />
+          <EntitySet Name="Prerequisites" EntityType="BlackCrusadeModel.Store.Prerequisites" store:Type="Tables" />
+          <EntitySet Name="TalentSpell" EntityType="BlackCrusadeModel.Store.TalentSpell" store:Type="Tables" />
+          <AssociationSet Name="FK_AttributeType" Association="BlackCrusadeModel.Store.FK_AttributeType">
+            <End Role="AttributeType" EntitySet="AttributeType" />
+            <End Role="TalentSpell" EntitySet="TalentSpell" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TalentSpellId" Association="BlackCrusadeModel.Store.FK_TalentSpellId">
+            <End Role="TalentSpell" EntitySet="TalentSpell" />
+            <End Role="Prerequisites" EntitySet="Prerequisites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WhichGod" Association="BlackCrusadeModel.Store.FK_WhichGod">
+            <End Role="BlackCrusadeGod" EntitySet="BlackCrusadeGod" />
+            <End Role="TalentSpell" EntitySet="TalentSpell" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AttributeType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="BlackCrusadeGod">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Prerequisites">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TalentSpellId" Type="int" Nullable="false" />
+          <Property Name="AttributeType" Type="int" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TalentSpell">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Revised" Type="bit" />
+          <Property Name="WhichGod" Type="int" />
+          <Property Name="Tier" Type="int" />
+          <Property Name="Cost" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AttributeType" Type="int" />
+        </EntityType>
+        <Association Name="FK_AttributeType">
+          <End Role="AttributeType" Type="BlackCrusadeModel.Store.AttributeType" Multiplicity="0..1" />
+          <End Role="TalentSpell" Type="BlackCrusadeModel.Store.TalentSpell" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AttributeType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TalentSpell">
+              <PropertyRef Name="AttributeType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TalentSpellId">
+          <End Role="TalentSpell" Type="BlackCrusadeModel.Store.TalentSpell" Multiplicity="1" />
+          <End Role="Prerequisites" Type="BlackCrusadeModel.Store.Prerequisites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TalentSpell">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Prerequisites">
+              <PropertyRef Name="TalentSpellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WhichGod">
+          <End Role="BlackCrusadeGod" Type="BlackCrusadeModel.Store.BlackCrusadeGod" Multiplicity="0..1" />
+          <End Role="TalentSpell" Type="BlackCrusadeModel.Store.TalentSpell" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BlackCrusadeGod">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TalentSpell">
+              <PropertyRef Name="WhichGod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BlackCrusadeModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BlackCrusadeEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="AttributeTypes" EntityType="BlackCrusadeModel.AttributeType" />
+          <EntitySet Name="BlackCrusadeGods" EntityType="BlackCrusadeModel.BlackCrusadeGod" />
+          <EntitySet Name="Prerequisites" EntityType="BlackCrusadeModel.Prerequisite" />
+          <EntitySet Name="TalentSpells" EntityType="BlackCrusadeModel.TalentSpell" />
+          <AssociationSet Name="FK_AttributeType" Association="BlackCrusadeModel.FK_AttributeType">
+            <End Role="AttributeType" EntitySet="AttributeTypes" />
+            <End Role="TalentSpell" EntitySet="TalentSpells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WhichGod" Association="BlackCrusadeModel.FK_WhichGod">
+            <End Role="BlackCrusadeGod" EntitySet="BlackCrusadeGods" />
+            <End Role="TalentSpell" EntitySet="TalentSpells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TalentSpellId" Association="BlackCrusadeModel.FK_TalentSpellId">
+            <End Role="TalentSpell" EntitySet="TalentSpells" />
+            <End Role="Prerequisites" EntitySet="Prerequisites" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AttributeType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="TalentSpells" Relationship="BlackCrusadeModel.FK_AttributeType" FromRole="AttributeType" ToRole="TalentSpell" />
+        </EntityType>
+        <EntityType Name="BlackCrusadeGod">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="TalentSpells" Relationship="BlackCrusadeModel.FK_WhichGod" FromRole="BlackCrusadeGod" ToRole="TalentSpell" />
+        </EntityType>
+        <EntityType Name="Prerequisite">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="TalentSpellId" Type="Int32" Nullable="false" />
+          <Property Name="AttributeType" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="TalentSpell" Relationship="BlackCrusadeModel.FK_TalentSpellId" FromRole="Prerequisites" ToRole="TalentSpell" />
+        </EntityType>
+        <EntityType Name="TalentSpell">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="Revised" Type="Boolean" />
+          <Property Name="WhichGod" Type="Int32" />
+          <Property Name="Tier" Type="Int32" />
+          <Property Name="Cost" Type="Int32" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="AttributeType" Type="Int32" />
+          <NavigationProperty Name="AttributeType1" Relationship="BlackCrusadeModel.FK_AttributeType" FromRole="TalentSpell" ToRole="AttributeType" />
+          <NavigationProperty Name="BlackCrusadeGod" Relationship="BlackCrusadeModel.FK_WhichGod" FromRole="TalentSpell" ToRole="BlackCrusadeGod" />
+          <NavigationProperty Name="Prerequisites" Relationship="BlackCrusadeModel.FK_TalentSpellId" FromRole="TalentSpell" ToRole="Prerequisites" />
+        </EntityType>
+        <Association Name="FK_AttributeType">
+          <End Role="AttributeType" Type="BlackCrusadeModel.AttributeType" Multiplicity="0..1" />
+          <End Role="TalentSpell" Type="BlackCrusadeModel.TalentSpell" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AttributeType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TalentSpell">
+              <PropertyRef Name="AttributeType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WhichGod">
+          <End Role="BlackCrusadeGod" Type="BlackCrusadeModel.BlackCrusadeGod" Multiplicity="0..1" />
+          <End Role="TalentSpell" Type="BlackCrusadeModel.TalentSpell" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BlackCrusadeGod">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TalentSpell">
+              <PropertyRef Name="WhichGod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TalentSpellId">
+          <End Role="TalentSpell" Type="BlackCrusadeModel.TalentSpell" Multiplicity="1" />
+          <End Role="Prerequisites" Type="BlackCrusadeModel.Prerequisite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TalentSpell">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Prerequisites">
+              <PropertyRef Name="TalentSpellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BlackCrusadeModelStoreContainer" CdmEntityContainer="BlackCrusadeEntities">
+          <EntitySetMapping Name="AttributeTypes">
+            <EntityTypeMapping TypeName="BlackCrusadeModel.AttributeType">
+              <MappingFragment StoreEntitySet="AttributeType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BlackCrusadeGods">
+            <EntityTypeMapping TypeName="BlackCrusadeModel.BlackCrusadeGod">
+              <MappingFragment StoreEntitySet="BlackCrusadeGod">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prerequisites">
+            <EntityTypeMapping TypeName="BlackCrusadeModel.Prerequisite">
+              <MappingFragment StoreEntitySet="Prerequisites">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TalentSpellId" ColumnName="TalentSpellId" />
+                <ScalarProperty Name="AttributeType" ColumnName="AttributeType" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TalentSpells">
+            <EntityTypeMapping TypeName="BlackCrusadeModel.TalentSpell">
+              <MappingFragment StoreEntitySet="TalentSpell">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Revised" ColumnName="Revised" />
+                <ScalarProperty Name="WhichGod" ColumnName="WhichGod" />
+                <ScalarProperty Name="Tier" ColumnName="Tier" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AttributeType" ColumnName="AttributeType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

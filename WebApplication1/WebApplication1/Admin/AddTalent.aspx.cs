@@ -11,7 +11,10 @@ namespace WebApplication1.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            using (var foo = new BlackCrusadeEntities())
+            {
+                var coo = foo.AttributeTypes.Select(f => f.Name).ToList();
+            }
         }
     }
 }
