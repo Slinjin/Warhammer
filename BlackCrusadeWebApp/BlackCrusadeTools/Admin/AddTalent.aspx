@@ -10,21 +10,44 @@
     <asp:EntityDataSource ID="EntityDataSource1" runat="server" 
         ConnectionString="name=BlackCrusadeEntities" DefaultContainerName="BlackCrusadeEntities" 
         EnableDelete="True" EnableFlattening="False" EnableInsert="True" EnableUpdate="True" 
-        EntitySetName="TalentSpells" OnQueryCreated="EntityDataSource1_QueryCreated">
+        EntitySetName="TalentSpells">
     </asp:EntityDataSource>
 
 
+    <form id="form1" runat="server">
+        <asp:EntityDataSource ID="TestEntityDataSource" runat="server" ConnectionString="name=BlackCrusadeEntities" DefaultContainerName="BlackCrusadeEntities" EnableDelete="True" EnableFlattening="False" EnableInsert="True" EnableUpdate="True" EntitySetName="Sifus">
+        </asp:EntityDataSource>
+
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+                <asp:GridView ID="NewGridView" runat="server">
+                </asp:GridView>
+            </ContentTemplate>
+        </asp:UpdatePanel>
 <%--    <asp:EntityDataSource ID="GridViewEntityDataSource" runat="server" 
     ContextTypeName="Rvl.Demo.AspNet4.EF.WebApplication.Dal.AdventureWorksEntities" 
     ConnectionString="name=AdventureWorksEntities" DefaultContainerName="AdventureWorksEntities" 
     EntitySetName="Product" 
     OnQueryCreated="GridViewEntityDataSource_QueryCreated">
     </asp:EntityDataSource>--%>
-    <form id="form1" runat="server">
     <div>
     
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+    
     </div>
-        <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" DataKeyNames="Id">
+        <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" DataKeyNames="Id" OnRowEditing="GridView1_RowEditing" style="margin-left: 0px">
             <AlternatingRowStyle BackColor="Gainsboro" />
             <Columns>
                 <asp:CommandField ShowInsertButton="true" ShowDeleteButton="True" ShowEditButton="True" ShowSelectButton="True" />
@@ -69,6 +92,14 @@
             <SortedAscendingHeaderStyle BackColor="#0000A9" />
             <SortedDescendingCellStyle BackColor="#CAC9C9" />
             <SortedDescendingHeaderStyle BackColor="#000065" />
+        </asp:GridView>
+        <asp:GridView ID="TestGridView" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="Id" DataSourceID="TestEntityDataSource">
+            <Columns>
+                <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" ShowSelectButton="True" />
+                <asp:BoundField DataField="Id" HeaderText="Id" ReadOnly="True" SortExpression="Id" />
+                <asp:BoundField DataField="Desc" HeaderText="Desc" SortExpression="Desc" />
+                <asp:BoundField DataField="Cost" HeaderText="Cost" SortExpression="Cost" />
+            </Columns>
         </asp:GridView>
     </form>
 </body>

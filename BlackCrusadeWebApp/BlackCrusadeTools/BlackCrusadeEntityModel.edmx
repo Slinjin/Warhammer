@@ -4,11 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BlackCrusadeModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BlackCrusadeModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="BlackCrusadeModelStoreContainer">
           <EntitySet Name="AttributeType" EntityType="BlackCrusadeModel.Store.AttributeType" store:Type="Tables" />
           <EntitySet Name="BlackCrusadeGod" EntityType="BlackCrusadeModel.Store.BlackCrusadeGod" store:Type="Tables" />
           <EntitySet Name="Prerequisites" EntityType="BlackCrusadeModel.Store.Prerequisites" store:Type="Tables" />
+          <EntitySet Name="Sifu" EntityType="BlackCrusadeModel.Store.Sifu" store:Type="Tables" />
           <EntitySet Name="TalentSpell" EntityType="BlackCrusadeModel.Store.TalentSpell" store:Type="Tables" />
           <AssociationSet Name="FK_AttributeType" Association="BlackCrusadeModel.Store.FK_AttributeType">
             <End Role="AttributeType" EntitySet="AttributeType" />
@@ -45,6 +46,14 @@
           <Property Name="TalentSpellId" Type="int" Nullable="false" />
           <Property Name="AttributeType" Type="int" Nullable="false" />
           <Property Name="Value" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Sifu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Desc" Type="nvarchar" MaxLength="100" />
+          <Property Name="Cost" Type="int" />
         </EntityType>
         <EntityType Name="TalentSpell">
           <Key>
@@ -95,8 +104,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BlackCrusadeModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -104,6 +112,7 @@
           <EntitySet Name="AttributeTypes" EntityType="BlackCrusadeModel.AttributeType" />
           <EntitySet Name="BlackCrusadeGods" EntityType="BlackCrusadeModel.BlackCrusadeGod" />
           <EntitySet Name="Prerequisites" EntityType="BlackCrusadeModel.Prerequisite" />
+          <EntitySet Name="Sifus" EntityType="BlackCrusadeModel.Sifu" />
           <EntitySet Name="TalentSpells" EntityType="BlackCrusadeModel.TalentSpell" />
           <AssociationSet Name="FK_AttributeType" Association="BlackCrusadeModel.FK_AttributeType">
             <End Role="AttributeType" EntitySet="AttributeTypes" />
@@ -143,6 +152,14 @@
           <Property Name="AttributeType" Type="Int32" Nullable="false" />
           <Property Name="Value" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="TalentSpell" Relationship="BlackCrusadeModel.FK_TalentSpellId" FromRole="Prerequisites" ToRole="TalentSpell" />
+        </EntityType>
+        <EntityType Name="Sifu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Desc" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Cost" Type="Int32" />
         </EntityType>
         <EntityType Name="TalentSpell">
           <Key>
@@ -225,6 +242,15 @@
                 <ScalarProperty Name="TalentSpellId" ColumnName="TalentSpellId" />
                 <ScalarProperty Name="AttributeType" ColumnName="AttributeType" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sifus">
+            <EntityTypeMapping TypeName="BlackCrusadeModel.Sifu">
+              <MappingFragment StoreEntitySet="Sifu">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Desc" ColumnName="Desc" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

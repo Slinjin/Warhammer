@@ -78,53 +78,55 @@
       <DependentUpon>AddTalent.aspx</DependentUpon>
     </Compile>
     <Compile Include="AttributeType.cs">
-      <DependentUpon>BlackCrusade.tt</DependentUpon>
+      <DependentUpon>BlackCrusadeEntityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="BlackCrusade.Context.cs">
+    <Compile Include="BlackCrusadeEntityModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BlackCrusade.Context.tt</DependentUpon>
+      <DependentUpon>BlackCrusadeEntityModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="BlackCrusade.cs">
+    <Compile Include="BlackCrusadeEntityModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BlackCrusade.tt</DependentUpon>
+      <DependentUpon>BlackCrusadeEntityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="BlackCrusade.Designer.cs">
+    <Compile Include="BlackCrusadeEntityModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BlackCrusade.edmx</DependentUpon>
+      <DependentUpon>BlackCrusadeEntityModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="BlackCrusadeGod.cs">
-      <DependentUpon>BlackCrusade.tt</DependentUpon>
+      <DependentUpon>BlackCrusadeEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Prerequisite.cs">
-      <DependentUpon>BlackCrusade.tt</DependentUpon>
+      <DependentUpon>BlackCrusadeEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sifu.cs">
+      <DependentUpon>BlackCrusadeEntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="TalentSpell.cs">
-      <DependentUpon>BlackCrusade.tt</DependentUpon>
+      <DependentUpon>BlackCrusadeEntityModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="ClassDiagram1.cd" />
-    <EntityDeploy Include="BlackCrusade.edmx">
+    <EntityDeploy Include="BlackCrusadeEntityModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BlackCrusade.Designer.cs</LastGenOutput>
+      <LastGenOutput>BlackCrusadeEntityModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="BlackCrusade.Context.tt">
+    <Content Include="BlackCrusadeEntityModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BlackCrusade.edmx</DependentUpon>
-      <LastGenOutput>BlackCrusade.Context.cs</LastGenOutput>
+      <DependentUpon>BlackCrusadeEntityModel.edmx</DependentUpon>
+      <LastGenOutput>BlackCrusadeEntityModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="BlackCrusade.edmx.diagram">
-      <DependentUpon>BlackCrusade.edmx</DependentUpon>
+    <Content Include="BlackCrusadeEntityModel.edmx.diagram">
+      <DependentUpon>BlackCrusadeEntityModel.edmx</DependentUpon>
     </Content>
-    <Content Include="BlackCrusade.tt">
+    <Content Include="BlackCrusadeEntityModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BlackCrusade.edmx</DependentUpon>
-      <LastGenOutput>BlackCrusade.cs</LastGenOutput>
+      <DependentUpon>BlackCrusadeEntityModel.edmx</DependentUpon>
+      <LastGenOutput>BlackCrusadeEntityModel.cs</LastGenOutput>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

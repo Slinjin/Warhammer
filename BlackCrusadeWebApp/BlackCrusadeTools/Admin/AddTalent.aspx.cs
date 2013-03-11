@@ -54,9 +54,24 @@ namespace WebApplication1.Admin
             }
         }
 
-        protected void EntityDataSource1_QueryCreated(object sender, QueryCreatedEventArgs e)
+        protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            
+
+        }
+
+        public void Insert()
+        {
+        }
+
+        public void Fetch()
+        { }
+
+        public void Update()
+        {
+        }
+
+        public void Delete()
+        {
         }
     }
 }

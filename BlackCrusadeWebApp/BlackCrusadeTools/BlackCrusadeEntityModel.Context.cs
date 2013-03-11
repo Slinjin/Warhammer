@@ -28,6 +28,7 @@ namespace WebApplication1
         public DbSet<AttributeType> AttributeTypes { get; set; }
         public DbSet<BlackCrusadeGod> BlackCrusadeGods { get; set; }
         public DbSet<Prerequisite> Prerequisites { get; set; }
+        public DbSet<Sifu> Sifus { get; set; }
         public DbSet<TalentSpell> TalentSpells { get; set; }
     }
 }
