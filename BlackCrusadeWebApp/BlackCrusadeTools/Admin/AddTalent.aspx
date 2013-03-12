@@ -15,92 +15,111 @@
 
 
     <form id="form1" runat="server">
-        <asp:EntityDataSource ID="TestEntityDataSource" runat="server" ConnectionString="name=BlackCrusadeEntities" DefaultContainerName="BlackCrusadeEntities" EnableDelete="True" EnableFlattening="False" EnableInsert="True" EnableUpdate="True" EntitySetName="Sifus">
-        </asp:EntityDataSource>
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+        </asp:ScriptManager>
 
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
-                <asp:GridView ID="NewGridView" runat="server">
+                <asp:GridView ID="NewGridView" runat="server" AutoGenerateColumns="False" DataKeyNames="Id" OnRowCancelingEdit="NewGridView_RowCancelingEdit" OnRowCommand="NewGridView_RowCommand" OnRowDeleting="NewGridView_RowDeleting" OnRowEditing="NewGridView_RowEditing" OnRowUpdating="NewGridView_RowUpdating" ShowFooter="True">
+                    <Columns>
+                        <asp:TemplateField HeaderText="TalentName" SortExpression="TalentName">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtTalentName" runat="server" Text='<%# Bind("TalentName") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:TextBox ID="txtNewTalentName" runat="server"></asp:TextBox>
+                            </FooterTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label1" runat="server" Text='<%# Bind("TalentName") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="TalentDescription" SortExpression="TalentDescription">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtDescription" runat="server" Text='<%# Bind("TalentDescription") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:TextBox ID="txtNewDescription" runat="server"></asp:TextBox>
+                            </FooterTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label2" runat="server" Text='<%# Bind("TalentDescription") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Tier" SortExpression="Tier">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtTier" runat="server" Text='<%# Bind("Tier") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:TextBox ID="txtNewTier" runat="server"></asp:TextBox>
+                            </FooterTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label4" runat="server" Text='<%# Bind("Tier") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Cost" SortExpression="Cost">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtCost" runat="server" Text='<%# Bind("Cost") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:TextBox ID="txtNewCost" runat="server"></asp:TextBox>
+                            </FooterTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label5" runat="server" Text='<%# Bind("Cost") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="GodName" SortExpression="GodName">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtGodName" runat="server" Text='<%# Bind("GodName") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:TextBox ID="txtNewGodName" runat="server"></asp:TextBox>
+                            </FooterTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label6" runat="server" Text='<%# Bind("GodName") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="AttributeName" SortExpression="AttributeName">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtAttributreName" runat="server" Text='<%# Bind("AttributeName") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:TextBox ID="txtNewAttributreName" runat="server"></asp:TextBox>
+                            </FooterTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label7" runat="server" Text='<%# Bind("AttributeName") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="WasRevised" SortExpression="WasRevised">
+                            <EditItemTemplate>
+                                <asp:CheckBox ID="chkWasRevised" runat="server" Checked='<%# Bind("WasRevised") %>' />
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:CheckBox ID="CheckBox1" runat="server" Checked='<%# Bind("WasRevised") %>' Enabled="false" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Edit">
+                            <EditItemTemplate>
+                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Update" Text="Update"></asp:LinkButton>
+                                &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" Enabled="true"></asp:LinkButton>
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:LinkButton ID="btnAddNew" runat="server">Add New</asp:LinkButton>
+                            </FooterTemplate>
+                            <ItemTemplate>
+                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit"></asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Delete">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="LinkButton3" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete"></asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
                 </asp:GridView>
             </ContentTemplate>
         </asp:UpdatePanel>
-<%--    <asp:EntityDataSource ID="GridViewEntityDataSource" runat="server" 
-    ContextTypeName="Rvl.Demo.AspNet4.EF.WebApplication.Dal.AdventureWorksEntities" 
-    ConnectionString="name=AdventureWorksEntities" DefaultContainerName="AdventureWorksEntities" 
-    EntitySetName="Product" 
-    OnQueryCreated="GridViewEntityDataSource_QueryCreated">
-    </asp:EntityDataSource>--%>
-    <div>
-    
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-    
-    </div>
-        <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" DataKeyNames="Id" OnRowEditing="GridView1_RowEditing" style="margin-left: 0px">
-            <AlternatingRowStyle BackColor="Gainsboro" />
-            <Columns>
-                <asp:CommandField ShowInsertButton="true" ShowDeleteButton="True" ShowEditButton="True" ShowSelectButton="True" />
-                <asp:BoundField DataField="GodId" HeaderText="GodId" SortExpression="GodId" />
-                <asp:BoundField DataField="TalentName" HeaderText="TalentName" SortExpression="Name" />
-                <asp:BoundField DataField="TalentDescription" HeaderText="TalentDescription" SortExpression="TalentDescription" />
-                <asp:BoundField DataField="WasRevised" HeaderText="WasRevised" SortExpression="WasRevised" />
-                <asp:BoundField DataField="Tier" HeaderText="Tier" SortExpression="Tier" />
-                <asp:BoundField DataField="Cost" HeaderText="Cost" SortExpression="Cost" />
-                <asp:BoundField DataField="GodName" HeaderText="GodName" ReadOnly="True" SortExpression="GodName" Visible="False" />
-                <asp:BoundField DataField="AttributeName" HeaderText="AttributeName" SortExpression="AttributeName" />
-            </Columns>
-            <FooterStyle BackColor="#CCCCCC" ForeColor="Black" />
-            <HeaderStyle BackColor="#000084" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#999999" ForeColor="Black" HorizontalAlign="Center" />
-            <RowStyle BackColor="#EEEEEE" ForeColor="Black" />
-            <SelectedRowStyle BackColor="#008A8C" Font-Bold="True" ForeColor="White" />
-            <SortedAscendingCellStyle BackColor="#F1F1F1" />
-            <SortedAscendingHeaderStyle BackColor="#0000A9" />
-            <SortedDescendingCellStyle BackColor="#CAC9C9" />
-            <SortedDescendingHeaderStyle BackColor="#000065" />
-        </asp:GridView>
-        <asp:GridView ID="GridView2" runat="server" AllowPaging="True" AllowSorting="True" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataSourceID="EntityDataSource1" GridLines="Vertical" AutoGenerateColumns="False" DataKeyNames="Id">
-            <AlternatingRowStyle BackColor="Gainsboro" />
-            <Columns>
-                <asp:CommandField ShowInsertButton="true" ShowDeleteButton="True" ShowEditButton="True" ShowSelectButton="True" />
-                <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
-                <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
-                <asp:CheckBoxField DataField="Revised" HeaderText="Revised" SortExpression="Revised" />
-                <asp:BoundField DataField="WhichGod" HeaderText="WhichGod" SortExpression="WhichGod" />
-                <asp:BoundField DataField="Tier" HeaderText="Tier" SortExpression="Tier" />
-                <asp:BoundField DataField="Cost" HeaderText="Cost" SortExpression="Cost" />
-                <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" ReadOnly="True" />
-                <asp:BoundField DataField="AttributeType" HeaderText="AttributeType" SortExpression="AttributeType" />
-            </Columns>
-            <FooterStyle BackColor="#CCCCCC" ForeColor="Black" />
-            <HeaderStyle BackColor="#000084" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#999999" ForeColor="Black" HorizontalAlign="Center" />
-            <RowStyle BackColor="#EEEEEE" ForeColor="Black" />
-            <SelectedRowStyle BackColor="#008A8C" Font-Bold="True" ForeColor="White" />
-            <SortedAscendingCellStyle BackColor="#F1F1F1" />
-            <SortedAscendingHeaderStyle BackColor="#0000A9" />
-            <SortedDescendingCellStyle BackColor="#CAC9C9" />
-            <SortedDescendingHeaderStyle BackColor="#000065" />
-        </asp:GridView>
-        <asp:GridView ID="TestGridView" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="Id" DataSourceID="TestEntityDataSource">
-            <Columns>
-                <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" ShowSelectButton="True" />
-                <asp:BoundField DataField="Id" HeaderText="Id" ReadOnly="True" SortExpression="Id" />
-                <asp:BoundField DataField="Desc" HeaderText="Desc" SortExpression="Desc" />
-                <asp:BoundField DataField="Cost" HeaderText="Cost" SortExpression="Cost" />
-            </Columns>
-        </asp:GridView>
+
+
+                        
     </form>
 </body>
 </html>
