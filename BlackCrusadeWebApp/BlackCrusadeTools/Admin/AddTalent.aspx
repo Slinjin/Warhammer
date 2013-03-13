@@ -20,7 +20,7 @@
 
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
-                <asp:GridView ID="NewGridView" runat="server" AutoGenerateColumns="False" DataKeyNames="Id" OnRowCancelingEdit="NewGridView_RowCancelingEdit" OnRowCommand="NewGridView_RowCommand" OnRowDeleting="NewGridView_RowDeleting" OnRowEditing="NewGridView_RowEditing" OnRowUpdating="NewGridView_RowUpdating" ShowFooter="True">
+                <asp:GridView ID="NewGridView" runat="server" AutoGenerateColumns="False" DataKeyNames="Id" OnRowCancelingEdit="NewGridView_RowCancelingEdit" OnRowCommand="NewGridView_RowCommand" OnRowDeleting="NewGridView_RowDeleting" OnRowEditing="NewGridView_RowEditing" OnRowUpdating="NewGridView_RowUpdating" ShowFooter="True" OnRowDataBound="NewGridView_RowDataBound">
                     <Columns>
                         <asp:TemplateField HeaderText="TalentName" SortExpression="TalentName">
                             <EditItemTemplate>
@@ -68,10 +68,12 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="GodName" SortExpression="GodName">
                             <EditItemTemplate>
-                                <asp:TextBox ID="txtGodName" runat="server" Text='<%# Bind("GodName") %>'></asp:TextBox>
+                                <asp:DropDownList ID="ddlGodName" runat="server">
+                                </asp:DropDownList>
                             </EditItemTemplate>
                             <FooterTemplate>
-                                <asp:TextBox ID="txtNewGodName" runat="server"></asp:TextBox>
+                                <asp:DropDownList ID="ddlNewGodName" runat="server">
+                                </asp:DropDownList>
                             </FooterTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="Label6" runat="server" Text='<%# Bind("GodName") %>'></asp:Label>
@@ -79,10 +81,12 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="AttributeName" SortExpression="AttributeName">
                             <EditItemTemplate>
-                                <asp:TextBox ID="txtAttributreName" runat="server" Text='<%# Bind("AttributeName") %>'></asp:TextBox>
+                                <asp:DropDownList ID="ddlAttributeName" runat="server">
+                                </asp:DropDownList>
                             </EditItemTemplate>
                             <FooterTemplate>
-                                <asp:TextBox ID="txtNewAttributreName" runat="server"></asp:TextBox>
+                                <asp:DropDownList ID="ddlNewAttributeName" runat="server">
+                                </asp:DropDownList>
                             </FooterTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="Label7" runat="server" Text='<%# Bind("AttributeName") %>'></asp:Label>
@@ -102,7 +106,7 @@
                                 &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" Enabled="true"></asp:LinkButton>
                             </EditItemTemplate>
                             <FooterTemplate>
-                                <asp:LinkButton ID="btnAddNew" runat="server">Add New</asp:LinkButton>
+                                <asp:LinkButton ID="btnAddNew" runat="server" CommandName="AddNew">Add New</asp:LinkButton>
                             </FooterTemplate>
                             <ItemTemplate>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit"></asp:LinkButton>

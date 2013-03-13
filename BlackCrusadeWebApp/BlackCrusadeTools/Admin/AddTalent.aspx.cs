@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -9,6 +10,8 @@ namespace WebApplication1.Admin
 {
     public partial class AddTalent : System.Web.UI.Page
     {
+        // private DbSet<TalentSpell> mTalentSpells;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -66,7 +69,8 @@ namespace WebApplication1.Admin
                                   Tier = T.Tier,
                                   Cost = T.Cost,
                                   GodName = G.Name,
-                                  AttributeName = A.Name
+                                  AttributeName = A.Name,
+                                  AttributeId = A.Id
                               })
                                      .ToList();
 
@@ -89,8 +93,6 @@ namespace WebApplication1.Admin
                     //GridView1.Rows[0].Cells[0].Text = "No Record Found"; 
                     throw new Exception("I didn't handle the zero record case");
                 }
-
-                
             }
         }
 
@@ -98,44 +100,32 @@ namespace WebApplication1.Admin
         {
             if (e.CommandName.Equals("AddNew"))
             {
-                TextBox txtTalentName = (TextBox)NewGridView.FooterRow.FindControl("txtTalentName");
-                TextBox txtTalentDescription = (TextBox)NewGridView.FooterRow.FindControl("txtTalentDescription");
-                TextBox txtTier = (TextBox)NewGridView.FooterRow.FindControl("txtTier");
-                TextBox txtCost = (TextBox)NewGridView.FooterRow.FindControl("txtCost");
-                TextBox txtGodName = (TextBox)NewGridView.FooterRow.FindControl("txtGodName");
-                TextBox txtAttributeName = (TextBox)NewGridView.FooterRow.FindControl("txtAttributeName");
-                CheckBox chkWasRevised = (CheckBox)NewGridView.FooterRow.FindControl("chkWasRevised");
+                TextBox txtTalentName = (TextBox)NewGridView.FooterRow.FindControl("txtNewTalentName");
+                TextBox txtTalentDescription = (TextBox)NewGridView.FooterRow.FindControl("txtNewDescription");
+                TextBox txtTier = (TextBox)NewGridView.FooterRow.FindControl("txtNewTier");
+                TextBox txtCost = (TextBox)NewGridView.FooterRow.FindControl("txtNewCost");
+                DropDownList ddlGodName = (DropDownList)NewGridView.FooterRow.FindControl("ddlNewGodName");
+                DropDownList ddlAttributeName = (DropDownList)NewGridView.FooterRow.FindControl("ddlNewAttributeName");
+                CheckBox chkWasRevised = (CheckBox)NewGridView.FooterRow.FindControl("chkNewWasRevised");
 
                 using (var context = new BlackCrusadeEntities())
                 {
                     context.TalentSpells.Add(new TalentSpell()
                     {
-                        //GodId = T.WhichGod,
-                        //Id = T.Id,
-                        //TalentName = T.Name,
-                        //TalentDescription = T.Description,
-                        //WasRevised = T.Revised,
-                        //Tier = T.Tier,
-                        //Cost = T.Cost,
-                        //GodName = G.Name,
-                        //AttributeName = A.Name
-                        WhichGod = 1,
+                        Revised = false,
+                        WhichGod = Convert.ToInt32(ddlGodName.SelectedItem.Value),
                         Name = txtTalentName.Text,
                         Description = txtTalentDescription.Text,
-                        Tier = 333,
-                        Cost = 555
-
-
-
+                        Tier = Convert.ToInt32(txtTier.Text),
+                        Cost = Convert.ToInt32(txtCost.Text),
+                        AttributeType = Convert.ToInt32(ddlAttributeName.SelectedItem.Value)
                     });
 
                     context.SaveChanges();
+
+                    FillGrid();
                 }
             }
-
-
-
-
         }
 
         protected void NewGridView_RowEditing(object sender, GridViewEditEventArgs e)
@@ -156,9 +146,8 @@ namespace WebApplication1.Admin
             TextBox txtTalentDescription = (TextBox)NewGridView.Rows[e.RowIndex].FindControl("txtDescription");
             TextBox txtTier = (TextBox)NewGridView.Rows[e.RowIndex].FindControl("txtTier");
             TextBox txtCost = (TextBox)NewGridView.Rows[e.RowIndex].FindControl("txtCost");
-            TextBox txtGodName = (TextBox)NewGridView.Rows[e.RowIndex].FindControl("txtGodName");
-            TextBox txtAttributeName = (TextBox)NewGridView.Rows[e.RowIndex].FindControl("txtAttributeName");
-            CheckBox chkWasRevised = (CheckBox)NewGridView.Rows[e.RowIndex].FindControl("chkWasRevised");
+            DropDownList ddlGodName = (DropDownList)NewGridView.Rows[e.RowIndex].FindControl("ddlGodName");
+            DropDownList ddlAttributeName = (DropDownList)NewGridView.Rows[e.RowIndex].FindControl("ddlAttributeName");
 
             using (var context = new BlackCrusadeEntities())
             {
@@ -168,30 +157,10 @@ namespace WebApplication1.Admin
                 talentSpell.Name = txtTalentName.Text;
                 talentSpell.Description = txtTalentDescription.Text;
                 talentSpell.Tier = Convert.ToInt32(txtTier.Text);
-                talentSpell.Cost = Convert.ToInt32(txtTier.Text);
-                //talentSpell.WhichGod = txtGodName
-                //talentSpell.AttributeType = txtAttributeName
-                talentSpell.Revised = chkWasRevised.Checked;
-                //context.TalentSpells.Add(new TalentSpell()
-                //{
-                //    //GodId = T.WhichGod,
-                //    //Id = T.Id,
-                //    //TalentName = T.Name,
-                //    //TalentDescription = T.Description,
-                //    //WasRevised = T.Revised,
-                //    //Tier = T.Tier,
-                //    //Cost = T.Cost,
-                //    //GodName = G.Name,
-                //    //AttributeName = A.Name
-                //    WhichGod = 1,
-                //    Name = txtTalentName.Text,
-                //    Description = txtTalentDescription.Text,
-                //    Tier = 333,
-                //    Cost = 555
-                    
-
-
-                //});
+                talentSpell.Cost = Convert.ToInt32(txtCost.Text);
+                talentSpell.WhichGod = Convert.ToInt32(ddlGodName.SelectedItem.Value);
+                talentSpell.AttributeType = Convert.ToInt32(ddlAttributeName.SelectedItem.Value);
+                talentSpell.Revised = true;
 
                 context.SaveChanges();
 
@@ -207,6 +176,75 @@ namespace WebApplication1.Admin
                 var index = NewGridView.DataKeys[e.RowIndex].Values[0].ToString();
 
                 //context.TalentSpells.
+            }
+        }
+
+        protected void NewGridView_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            using (var context = new BlackCrusadeEntities())
+            {
+                var joined = (from T in context.TalentSpells
+                              from G in context.BlackCrusadeGods
+                              from A in context.AttributeTypes
+                              where T.WhichGod == G.Id
+                              where T.AttributeType == A.Id
+                              select new
+                              {
+                                  GodId = T.WhichGod,
+                                  Id = T.Id,
+                                  TalentName = T.Name,
+                                  TalentDescription = T.Description,
+                                  WasRevised = T.Revised,
+                                  Tier = T.Tier,
+                                  Cost = T.Cost,
+                                  GodName = G.Name,
+                                  AttributeName = A.Name,
+                                  AttributeId = A.Id
+                              });
+
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                    DropDownList ddlGodName = e.Row.FindControl("ddlGodName") as DropDownList;
+
+                    if (ddlGodName != null)
+                    {
+                        int id = Convert.ToInt32(NewGridView.DataKeys[e.Row.RowIndex].Values[0].ToString());
+                        var talentSpell = joined.FirstOrDefault(j => j.Id == id);
+                        ddlGodName.DataValueField = "Id";
+                        ddlGodName.DataTextField = "Name";
+                        ddlGodName.DataSource = context.BlackCrusadeGods.ToList();
+                        ddlGodName.DataBind();
+                        ddlGodName.SelectedValue = talentSpell.GodId.ToString();
+                    }
+
+                    DropDownList ddlAttributeName = e.Row.FindControl("ddlAttributeName") as DropDownList;
+
+                    if (ddlAttributeName != null)
+                    {
+                        int id = Convert.ToInt32(NewGridView.DataKeys[e.Row.RowIndex].Values[0].ToString());
+                        var talentSpell = joined.FirstOrDefault(j => j.Id == id);
+                        ddlAttributeName.DataValueField = "Id";
+                        ddlAttributeName.DataTextField = "Name";
+                        ddlAttributeName.DataSource = context.AttributeTypes.ToList();
+                        ddlAttributeName.DataBind();
+                        ddlAttributeName.SelectedValue = talentSpell.AttributeId.ToString();
+                    }
+                }
+
+                if (e.Row.RowType == DataControlRowType.Footer)
+                {
+                    DropDownList ddlNewGodName = e.Row.FindControl("ddlNewGodName") as DropDownList;
+                    ddlNewGodName.DataValueField = "Id";
+                    ddlNewGodName.DataTextField = "Name";
+                    ddlNewGodName.DataSource = context.BlackCrusadeGods.ToList(); ;
+                    ddlNewGodName.DataBind();
+
+                    DropDownList ddlNewAttributeName = e.Row.FindControl("ddlNewAttributeName") as DropDownList;
+                    ddlNewAttributeName.DataValueField = "Id";
+                    ddlNewAttributeName.DataTextField = "Name";
+                    ddlNewAttributeName.DataSource = context.AttributeTypes.ToList();
+                    ddlNewAttributeName.DataBind();
+                }
             }
         }
     }
