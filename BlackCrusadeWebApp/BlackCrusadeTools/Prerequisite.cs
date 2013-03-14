@@ -17,7 +17,7 @@ namespace WebApplication1
         public int Id { get; set; }
         public int TalentSpellId { get; set; }
         public int AttributeType { get; set; }
-        public string Value { get; set; }
+        public Nullable<int> Cost { get; set; }
     
         public virtual TalentSpell TalentSpell { get; set; }
     }

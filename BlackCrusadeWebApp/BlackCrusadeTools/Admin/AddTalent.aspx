@@ -20,8 +20,9 @@
 
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
-                <asp:GridView ID="NewGridView" runat="server" AutoGenerateColumns="False" DataKeyNames="Id" OnRowCancelingEdit="NewGridView_RowCancelingEdit" OnRowCommand="NewGridView_RowCommand" OnRowDeleting="NewGridView_RowDeleting" OnRowEditing="NewGridView_RowEditing" OnRowUpdating="NewGridView_RowUpdating" ShowFooter="True" OnRowDataBound="NewGridView_RowDataBound">
+                <asp:GridView ID="gvTalentSpells" runat="server" AutoGenerateColumns="False" DataKeyNames="Id" OnRowCancelingEdit="gvTalentSpells_RowCancelingEdit" OnRowCommand="gvTalentSpells_RowCommand" OnRowDeleting="gvTalentSpells_RowDeleting" OnRowEditing="gvTalentSpells_RowEditing" OnRowUpdating="gvTalentSpells_RowUpdating" ShowFooter="True" OnRowDataBound="gvTalentSpells_RowDataBound">
                     <Columns>
+                        <asp:BoundField DataField="Id" HeaderText="Id" ReadOnly="True" SortExpression="Id" />
                         <asp:TemplateField HeaderText="TalentName" SortExpression="TalentName">
                             <EditItemTemplate>
                                 <asp:TextBox ID="txtTalentName" runat="server" Text='<%# Bind("TalentName") %>'></asp:TextBox>
@@ -113,6 +114,66 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Delete">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="LinkButton3" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete"></asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:CommandField HeaderText="Select" ShowSelectButton="True" />
+                    </Columns>
+                </asp:GridView>
+                
+                <br />
+                Prerequisites (select row on top)<br />
+                <asp:GridView ID="gvPrerequisites" runat="server" AutoGenerateColumns="False" DataKeyNames="Id" OnRowCancelingEdit="gvPrerequisites_RowCancelingEdit" OnRowCommand="gvPrerequisites_RowCommand" OnRowDataBound="gvPrerequisites_RowDataBound" OnRowDeleting="gvPrerequisites_RowDeleting" OnRowEditing="gvPrerequisites_RowEditing" OnRowUpdating="gvPrerequisites_RowUpdating" ShowFooter="True">
+                    <Columns>
+                        <asp:TemplateField HeaderText="TalentSpellId" SortExpression="TalentSpellId">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtTalentSpellId" runat="server" Text='<%# Bind("TalentSpellId") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:TextBox ID="txtNewTalentSpellId" runat="server"></asp:TextBox>
+                            </FooterTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label1" runat="server" Text='<%# Bind("TalentSpellId") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="AttributeName" SortExpression="AttributeName">
+                            <EditItemTemplate>
+                                <asp:DropDownList ID="ddlAttributeName" runat="server">
+                                </asp:DropDownList>
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:DropDownList ID="ddlNewAttributeName" runat="server">
+                                </asp:DropDownList>
+                            </FooterTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label7" runat="server" Text='<%# Bind("AttributeName") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Cost">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtCost" runat="server" Text='<%# Bind("Cost") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:TextBox ID="txtNewCost" runat="server"></asp:TextBox>
+                            </FooterTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label3" runat="server" Text='<%# Bind("Cost") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Edit" ShowHeader="False">
+                            <EditItemTemplate>
+                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="Update"></asp:LinkButton>
+                                &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel"></asp:LinkButton>
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:LinkButton ID="LinkButton4" runat="server" CommandName="AddNew">Add New</asp:LinkButton>
+                            </FooterTemplate>
+                            <ItemTemplate>
+                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit"></asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Delete" ShowHeader="False">
                             <ItemTemplate>
                                 <asp:LinkButton ID="LinkButton3" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete"></asp:LinkButton>
                             </ItemTemplate>

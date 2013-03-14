@@ -49,12 +49,21 @@ namespace WebApplication1.Admin {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// NewGridView control.
+        /// gvTalentSpells control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView NewGridView;
+        protected global::System.Web.UI.WebControls.GridView gvTalentSpells;
+        
+        /// <summary>
+        /// gvPrerequisites control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvPrerequisites;
     }
 }

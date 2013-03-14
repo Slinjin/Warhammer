@@ -45,7 +45,7 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="TalentSpellId" Type="int" Nullable="false" />
           <Property Name="AttributeType" Type="int" Nullable="false" />
-          <Property Name="Value" Type="nvarchar" MaxLength="100" />
+          <Property Name="Cost" Type="int" />
         </EntityType>
         <EntityType Name="Sifu">
           <Key>
@@ -150,8 +150,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="TalentSpellId" Type="Int32" Nullable="false" />
           <Property Name="AttributeType" Type="Int32" Nullable="false" />
-          <Property Name="Value" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="TalentSpell" Relationship="BlackCrusadeModel.FK_TalentSpellId" FromRole="Prerequisites" ToRole="TalentSpell" />
+          <Property Type="Int32" Name="Cost" />
         </EntityType>
         <EntityType Name="Sifu">
           <Key>
@@ -238,10 +238,10 @@
           <EntitySetMapping Name="Prerequisites">
             <EntityTypeMapping TypeName="BlackCrusadeModel.Prerequisite">
               <MappingFragment StoreEntitySet="Prerequisites">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TalentSpellId" ColumnName="TalentSpellId" />
                 <ScalarProperty Name="AttributeType" ColumnName="AttributeType" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
