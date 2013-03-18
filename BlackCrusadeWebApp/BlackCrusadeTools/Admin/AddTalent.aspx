@@ -101,6 +101,19 @@
                                 <asp:CheckBox ID="CheckBox1" runat="server" Checked='<%# Bind("WasRevised") %>' Enabled="false" />
                             </ItemTemplate>
                         </asp:TemplateField>
+                        <asp:TemplateField HeaderText="BooksourceName">
+                            <EditItemTemplate>
+                                <asp:DropDownList ID="ddlBooksourceName" runat="server">
+                                </asp:DropDownList>
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:DropDownList ID="ddlNewBooksourceName" runat="server">
+                                </asp:DropDownList>
+                            </FooterTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label3" runat="server" Text='<%# Bind("BooksourceName") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Edit">
                             <EditItemTemplate>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Update" Text="Update"></asp:LinkButton>

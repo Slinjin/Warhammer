@@ -98,6 +98,9 @@
     <Compile Include="BlackCrusadeGod.cs">
       <DependentUpon>BlackCrusadeEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Booksource.cs">
+      <DependentUpon>BlackCrusadeEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Prerequisite.cs">
       <DependentUpon>BlackCrusadeEntities.tt</DependentUpon>
     </Compile>

@@ -30,5 +30,6 @@ namespace WebApplication1
         public DbSet<Prerequisite> Prerequisites { get; set; }
         public DbSet<Sifu> Sifus { get; set; }
         public DbSet<TalentSpell> TalentSpells { get; set; }
+        public DbSet<Booksource> Booksources { get; set; }
     }
 }

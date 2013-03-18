@@ -8,11 +8,16 @@
         <EntityContainer Name="BlackCrusadeModelStoreContainer">
           <EntitySet Name="AttributeType" EntityType="BlackCrusadeModel.Store.AttributeType" store:Type="Tables" />
           <EntitySet Name="BlackCrusadeGod" EntityType="BlackCrusadeModel.Store.BlackCrusadeGod" store:Type="Tables" />
+          <EntitySet Name="Booksources" EntityType="BlackCrusadeModel.Store.Booksources" store:Type="Tables" />
           <EntitySet Name="Prerequisites" EntityType="BlackCrusadeModel.Store.Prerequisites" store:Type="Tables" />
           <EntitySet Name="Sifu" EntityType="BlackCrusadeModel.Store.Sifu" store:Type="Tables" />
           <EntitySet Name="TalentSpell" EntityType="BlackCrusadeModel.Store.TalentSpell" store:Type="Tables" />
           <AssociationSet Name="FK_AttributeType" Association="BlackCrusadeModel.Store.FK_AttributeType">
             <End Role="AttributeType" EntitySet="AttributeType" />
+            <End Role="TalentSpell" EntitySet="TalentSpell" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Booksource" Association="BlackCrusadeModel.Store.FK_Booksource">
+            <End Role="Booksources" EntitySet="Booksources" />
             <End Role="TalentSpell" EntitySet="TalentSpell" />
           </AssociationSet>
           <AssociationSet Name="FK_TalentSpellId" Association="BlackCrusadeModel.Store.FK_TalentSpellId">
@@ -37,6 +42,13 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Booksources">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
         </EntityType>
         <EntityType Name="Prerequisites">
           <Key>
@@ -67,6 +79,7 @@
           <Property Name="Cost" Type="int" />
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="AttributeType" Type="int" />
+          <Property Name="Booksource" Type="int" />
         </EntityType>
         <Association Name="FK_AttributeType">
           <End Role="AttributeType" Type="BlackCrusadeModel.Store.AttributeType" Multiplicity="0..1" />
@@ -77,6 +90,18 @@
             </Principal>
             <Dependent Role="TalentSpell">
               <PropertyRef Name="AttributeType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Booksource">
+          <End Role="Booksources" Type="BlackCrusadeModel.Store.Booksources" Multiplicity="0..1" />
+          <End Role="TalentSpell" Type="BlackCrusadeModel.Store.TalentSpell" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booksources">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TalentSpell">
+              <PropertyRef Name="Booksource" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -125,6 +150,11 @@
           <AssociationSet Name="FK_TalentSpellId" Association="BlackCrusadeModel.FK_TalentSpellId">
             <End Role="TalentSpell" EntitySet="TalentSpells" />
             <End Role="Prerequisites" EntitySet="Prerequisites" />
+          </AssociationSet>
+          <EntitySet Name="Booksources" EntityType="BlackCrusadeModel.Booksource" />
+          <AssociationSet Name="FK_Booksource" Association="BlackCrusadeModel.FK_Booksource">
+            <End Role="Booksource" EntitySet="Booksources" />
+            <End Role="TalentSpell" EntitySet="TalentSpells" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AttributeType">
@@ -176,6 +206,8 @@
           <NavigationProperty Name="AttributeType1" Relationship="BlackCrusadeModel.FK_AttributeType" FromRole="TalentSpell" ToRole="AttributeType" />
           <NavigationProperty Name="BlackCrusadeGod" Relationship="BlackCrusadeModel.FK_WhichGod" FromRole="TalentSpell" ToRole="BlackCrusadeGod" />
           <NavigationProperty Name="Prerequisites" Relationship="BlackCrusadeModel.FK_TalentSpellId" FromRole="TalentSpell" ToRole="Prerequisites" />
+          <Property Type="Int32" Name="Booksource" />
+          <NavigationProperty Name="Booksource1" Relationship="BlackCrusadeModel.FK_Booksource" FromRole="TalentSpell" ToRole="Booksource" />
         </EntityType>
         <Association Name="FK_AttributeType">
           <End Role="AttributeType" Type="BlackCrusadeModel.AttributeType" Multiplicity="0..1" />
@@ -210,6 +242,26 @@
             </Principal>
             <Dependent Role="Prerequisites">
               <PropertyRef Name="TalentSpellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Booksource">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TalentSpells" Relationship="BlackCrusadeModel.FK_Booksource" FromRole="Booksource" ToRole="TalentSpell" />
+        </EntityType>
+        <Association Name="FK_Booksource">
+          <End Type="BlackCrusadeModel.Booksource" Role="Booksource" Multiplicity="0..1" />
+          <End Type="BlackCrusadeModel.TalentSpell" Role="TalentSpell" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booksource">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TalentSpell">
+              <PropertyRef Name="Booksource" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -257,6 +309,7 @@
           <EntitySetMapping Name="TalentSpells">
             <EntityTypeMapping TypeName="BlackCrusadeModel.TalentSpell">
               <MappingFragment StoreEntitySet="TalentSpell">
+                <ScalarProperty Name="Booksource" ColumnName="Booksource" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Revised" ColumnName="Revised" />
@@ -265,6 +318,14 @@
                 <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="AttributeType" ColumnName="AttributeType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Booksources">
+            <EntityTypeMapping TypeName="BlackCrusadeModel.Booksource">
+              <MappingFragment StoreEntitySet="Booksources">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

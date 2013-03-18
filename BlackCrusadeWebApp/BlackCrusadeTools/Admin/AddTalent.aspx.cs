@@ -40,8 +40,10 @@ namespace WebApplication1.Admin
                 var joined = (from T in context.TalentSpells
                               from G in context.BlackCrusadeGods
                               from A in context.AttributeTypes
+                              from B in context.Booksources
                               where T.WhichGod == G.Id
                               where T.AttributeType == A.Id
+                              where T.Booksource == B.Id
                               select new
                               {
                                   GodId = T.WhichGod,
@@ -53,7 +55,9 @@ namespace WebApplication1.Admin
                                   Cost = T.Cost,
                                   GodName = G.Name,
                                   AttributeName = A.Name,
-                                  AttributeId = A.Id
+                                  AttributeId = A.Id,
+                                  BooksourceId = T.Booksource,
+                                  BooksourceName = B.Name
                               })
                                      .ToList();
 
@@ -75,7 +79,9 @@ namespace WebApplication1.Admin
                         Cost = 0,
                         GodName = "0",
                         AttributeName = "0",
-                        AttributeId = 0
+                        AttributeId = 0,
+                        BooksourceId = 0,
+                        BooksourceName = "0"
                     };
 
                     gvTalentSpells.DataSource = new[] { emptyObject };
@@ -145,6 +151,7 @@ namespace WebApplication1.Admin
                 TextBox txtCost = (TextBox)gvTalentSpells.FooterRow.FindControl("txtNewCost");
                 DropDownList ddlGodName = (DropDownList)gvTalentSpells.FooterRow.FindControl("ddlNewGodName");
                 DropDownList ddlAttributeName = (DropDownList)gvTalentSpells.FooterRow.FindControl("ddlNewAttributeName");
+                DropDownList ddlBooksourceName = (DropDownList)gvTalentSpells.FooterRow.FindControl("ddlNewBooksourceName");
                 CheckBox chkWasRevised = (CheckBox)gvTalentSpells.FooterRow.FindControl("chkNewWasRevised");
 
                 using (var context = new BlackCrusadeEntities())
@@ -157,7 +164,8 @@ namespace WebApplication1.Admin
                         Description = txtTalentDescription.Text,
                         Tier = Convert.ToInt32(txtTier.Text),
                         Cost = Convert.ToInt32(txtCost.Text),
-                        AttributeType = Convert.ToInt32(ddlAttributeName.SelectedItem.Value)
+                        AttributeType = Convert.ToInt32(ddlAttributeName.SelectedItem.Value),
+                        Booksource = Convert.ToInt32(ddlBooksourceName.SelectedItem.Value)
                     });
 
                     context.SaveChanges();
@@ -230,6 +238,7 @@ namespace WebApplication1.Admin
             TextBox txtCost = (TextBox)gvTalentSpells.Rows[e.RowIndex].FindControl("txtCost");
             DropDownList ddlGodName = (DropDownList)gvTalentSpells.Rows[e.RowIndex].FindControl("ddlGodName");
             DropDownList ddlAttributeName = (DropDownList)gvTalentSpells.Rows[e.RowIndex].FindControl("ddlAttributeName");
+            DropDownList ddlBooksourceName = (DropDownList)gvTalentSpells.Rows[e.RowIndex].FindControl("ddlBooksourceName");
 
             using (var context = new BlackCrusadeEntities())
             {
@@ -243,7 +252,7 @@ namespace WebApplication1.Admin
                 talentSpell.WhichGod = Convert.ToInt32(ddlGodName.SelectedItem.Value);
                 talentSpell.AttributeType = Convert.ToInt32(ddlAttributeName.SelectedItem.Value);
                 talentSpell.Revised = true;
-
+                talentSpell.Booksource = Convert.ToInt32(ddlBooksourceName.SelectedItem.Value);
                 context.SaveChanges();
 
                 gvTalentSpells.EditIndex = -1;
@@ -303,8 +312,10 @@ namespace WebApplication1.Admin
                 var joined = (from T in context.TalentSpells
                               from G in context.BlackCrusadeGods
                               from A in context.AttributeTypes
+                              from B in context.Booksources
                               where T.WhichGod == G.Id
                               where T.AttributeType == A.Id
+                              where T.Booksource == B.Id
                               select new
                               {
                                   GodId = T.WhichGod,
@@ -316,8 +327,11 @@ namespace WebApplication1.Admin
                                   Cost = T.Cost,
                                   GodName = G.Name,
                                   AttributeName = A.Name,
-                                  AttributeId = A.Id
-                              });
+                                  AttributeId = A.Id,
+                                  BooksourceId = T.Booksource,
+                                  BooksourceName = B.Name
+                              })
+                                     .ToList();
 
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
@@ -346,6 +360,19 @@ namespace WebApplication1.Admin
                         ddlAttributeName.DataBind();
                         ddlAttributeName.SelectedValue = talentSpell.AttributeId.ToString();
                     }
+
+                    DropDownList ddlBooksourceName = e.Row.FindControl("ddlBooksourceName") as DropDownList;
+
+                    if (ddlBooksourceName != null)
+                    {
+                        int id = Convert.ToInt32(gvTalentSpells.DataKeys[e.Row.RowIndex].Values[0].ToString());
+                        var talentSpell = joined.FirstOrDefault(j => j.Id == id);
+                        ddlBooksourceName.DataValueField = "Id";
+                        ddlBooksourceName.DataTextField = "Name";
+                        ddlBooksourceName.DataSource = context.BlackCrusadeGods.ToList();
+                        ddlBooksourceName.DataBind();
+                        ddlBooksourceName.SelectedValue = talentSpell.GodId.ToString();
+                    }
                 }
 
                 if (e.Row.RowType == DataControlRowType.Footer)
@@ -361,6 +388,12 @@ namespace WebApplication1.Admin
                     ddlNewAttributeName.DataTextField = "Name";
                     ddlNewAttributeName.DataSource = context.AttributeTypes.ToList();
                     ddlNewAttributeName.DataBind();
+
+                    DropDownList ddlBooksourceName = e.Row.FindControl("ddlNewBooksourceName") as DropDownList;
+                    ddlBooksourceName.DataValueField = "Id";
+                    ddlBooksourceName.DataTextField = "Name";
+                    ddlBooksourceName.DataSource = context.Booksources.ToList();
+                    ddlBooksourceName.DataBind();
                 }
             }
         }
@@ -417,13 +450,5 @@ namespace WebApplication1.Admin
                 }
             }
         }
-
-
-
-
-
-
-
-
     }
 }

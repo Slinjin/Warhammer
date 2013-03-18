@@ -13,6 +13,8 @@
         <AssociationConnector Association="BlackCrusadeModel.FK_AttributeType" ManuallyRouted="false" />
         <AssociationConnector Association="BlackCrusadeModel.FK_WhichGod" ManuallyRouted="false" />
         <AssociationConnector Association="BlackCrusadeModel.FK_TalentSpellId" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BlackCrusadeModel.Booksource" Width="1.5" PointX="9.0577762895532778" PointY="16.129102252483882" />
+        <AssociationConnector Association="BlackCrusadeModel.FK_Booksource" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

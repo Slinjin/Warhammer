@@ -27,9 +27,11 @@ namespace WebApplication1
         public Nullable<int> Cost { get; set; }
         public int Id { get; set; }
         public Nullable<int> AttributeType { get; set; }
+        public Nullable<int> Booksource { get; set; }
     
         public virtual AttributeType AttributeType1 { get; set; }
         public virtual BlackCrusadeGod BlackCrusadeGod { get; set; }
         public virtual ICollection<Prerequisite> Prerequisites { get; set; }
+        public virtual Booksource Booksource1 { get; set; }
     }
 }
